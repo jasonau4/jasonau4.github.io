@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background: #111;
+  color: #e6e6e6;
+  font: 18px/1.5 "Times New Roman", Times, serif;
+}
+
+main { max-width: 860px; margin: 0 auto; padding: 4rem 1.5rem; }
+
+h1 { font-size: 1.6rem; font-weight: normal; margin: 0 0 1.5rem; }
+h2 { font-size: 1.1rem; font-weight: normal; font-style: italic; margin: 0 0 1rem; }
+.bio { max-width: 560px; }
+
+a { color: #8ab4f8; }
+a:visited { color: #c58af9; }
+
+/* List on the left, selected item on the right */
+.split { display: flex; gap: 3rem; margin-top: 2rem; }
+
+/* Left column: section headings + lists */
+.lists { flex: 0 0 220px; }
+.lists h2 { color: #777; font-size: 1rem; margin-bottom: 0.5rem; }
+.lists ul + h2 { margin-top: 2rem; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+li { margin: 0.3rem 0; cursor: pointer; color: #999; }
+li:hover, li:focus-visible { color: #e6e6e6; outline: none; }
+li.active { color: #e6e6e6; }
+li.active::before { content: "› "; }
+
+#detail { flex: 1; border-left: 1px solid #333; padding-left: 3rem; align-self: flex-start; position: sticky; top: 2rem; }
+#detail p { margin: 0 0 1rem; }
+
+/* Phones: panel drops below the list */
+@media (max-width: 640px) {
+  .split { flex-direction: column; gap: 1.5rem; }
+  .lists { flex: none; }
+  #detail { position: static; border-left: none; padding-left: 0; border-top: 1px solid #333; padding-top: 1.5rem; }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jason Au</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Jason Au</h1>
+    <p class="bio">
+      Originally from Irvine, California, lived there until I was 20. 
+      Recently moved to Philadelphia, Pennsylvania.
+
+      I enjoy solving problems and expressing myself, those have been
+      two constant themes in both my hobbies and my work.
+    </p>
+
+    <div class="split">
+      <div class="lists">
+        <h2>Experiences</h2>
+        <ul id="experiences-list"></ul>
+
+        <h2>Things I like</h2>
+        <ul id="likes-list"></ul>
+      </div>
+
+      <!-- Side panel: shows whichever item is selected -->
+      <div id="detail" hidden>
+        <h2 id="d-title"></h2>
+        <div id="d-body"></div>
+        <p><a id="d-link" target="_blank" rel="noopener"></a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Content for the two lists -->
+  <script src="experiences.js"></script>
+  <script src="likes.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const items = []; // every list item on the page, with the entry it shows
+
+    function buildList(entries, listId) {
+      entries.forEach((entry) => {
+        const li = document.createElement('li');
+        li.textContent = entry.title;
+        li.tabIndex = 0;
+        const index = items.length;
+        li.addEventListener('click', () => select(index));
+        li.addEventListener('keydown', (e) => { if (e.key === 'Enter') select(index); });
+        $(listId).appendChild(li);
+        items.push({ li, entry });
+      });
+    }
+    buildList(experiences, 'experiences-list');
+    buildList(likes, 'likes-list');
+
+    // Show one item in the side panel; clicking the selected item again closes it
+    function select(i) {
+      const closing = items[i].li.classList.contains('active');
+      items.forEach(({ li }) => li.classList.remove('active'));
+      $('detail').hidden = closing;
+      if (closing) return;
+
+      const { li, entry } = items[i];
+      li.classList.add('active');
+      $('d-title').textContent = entry.title;
+      $('d-body').replaceChildren(...entry.details.map((text) => {
+        const p = document.createElement('p');
+        p.innerHTML = text; // allows <a href="...">links</a> inside descriptions
+        return p;
+      }));
+      // Open links from descriptions in a new tab
+      $('d-body').querySelectorAll('a').forEach((a) => {
+        a.target = '_blank';
+        a.rel = 'noopener';
+      });
+      $('d-link').href = entry.link;
+      $('d-link').textContent = entry.link;
+      $('d-link').parentElement.hidden = !entry.link;
+    }
+  </script>
+</body>
+</html>
