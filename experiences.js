@@ -11,10 +11,7 @@ const experiences = [
     title: "Susquehanna",
     details: [`Currently a full time prediction markets trader. The most
       exciting of my work is identifying potential opportunities in the market
-      and making sure we're the ones capitalizing on it. These seem both more
-      common and more rare than I would've thought. Kind of paradoxical, but maybe you
-      understand what I mean.`,
-      `Most involved with sports team pricing, pregame.`
+      and making sure we're the ones capitalizing on it.`,
     ],
     link: "",
   },
